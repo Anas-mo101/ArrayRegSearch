@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./build/ArrayRegSearch.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="bg-slate-600 font-mono p-4 text-white">
+
+    <div class="my-12 p-4 bg-slate-400 rounded-xl">
+        <h2 id="result" class="text-center text-4xl">
+            ArrayRegSearch
+        </h2>
+    </div>
+
+    
+    <div class="w-full max-w">
+        <div class="flex items-center gap-2 py-2">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
+            <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="find" type="button">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-5 py-2">
+            <div>
+                <h1>
+                    Select Search Algorthim: 
+                </h1>
+            </div>
+            <select id="search-algo"  class="block p-2 text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected value="ArrayRegSearch">
+                    ArrayRegSearch
+                </option>
+                <option value="findIndex">
+                    findIndex()
+                </option>
+                <option value="filter">
+                    filter()
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-5 py-2">
+            <div>
+                <h1>
+                    Select Search Key: 
+                </h1>
+            </div>
+            <select id="search-key"  class="block p-2 text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected value="uid">
+                    UID
+                </option>
+                <option selected value="first_name">
+                    First Name
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-2 py-2">
+            <div>
+                <h1 id="range-value">
+                    0
+                </h1>
+            </div>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="data-size" value="0" type="range" step="1" min="0" max="50" placeholder="Search">
+            <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="get-data-size" type="button">
+                Set Size
+            </button>
+        </div>
+    </div>
+
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+            <h1> Index: <span id="index-found">0</span> </h1>
+        </div>
+    </div>
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+            <h1> Elapsed time: <span id="time">0</span> </h1>
+        </div>
+    </div>
+
+
+    <div class="w-full max-w">
+        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+            <h1> Size Of Array: <span id="size">0</span> </h1>
+        </div>
+    </div>
+
+    <div style="display: none;" id="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(71,85,105); display: block;" width="253px" height="253px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g transform="rotate(0 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-1.527777777777778s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(30 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-1.388888888888889s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(60 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-1.2500000000000002s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(90 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-1.1111111111111112s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(120 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.9722222222222223s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(150 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.8333333333333334s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(180 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.6944444444444445s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(210 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.5555555555555556s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(240 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.4166666666666667s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(270 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.2777777777777778s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(300 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-0.1388888888888889s" repeatCount="indefinite"></animate>
+              </rect>
+            </g><g transform="rotate(330 50 50)">
+              <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="0s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+            </svg>
+    </div>
+
+
+
+</body>
+    <script>
+
+        let test_arr = [];
+
+        document.getElementById('find').addEventListener('click', (e) => {
+            let search = document.getElementById('search').value.trim();
+            let algo = document.getElementById('search-algo').value;
+            let key = document.getElementById('search-key').value;
+
+            switch (algo) {
+                case 'ArrayRegSearch':
+                    useArrayRegSearch(search,key);
+                    break;
+
+                case 'findIndex':
+                    useFindIndex(search,key)
+                    break;
+
+                case 'filter':
+                    useFilter(search,key)
+                    break;
+            
+                default:
+                    break;
+            }
+
+            
+        });
+
+        document.getElementById('get-data-size').addEventListener('click', (e) => {
+            let value = document.getElementById('data-size').value;
+            getData(value);
+        });
+
+        document.getElementById('data-size').addEventListener('change', (e) => {
+            document.getElementById('range-value').innerText = e.target.value * 100;
+        });
+
+
+        // gather random data to search
+        async function getData(n = 1){
+            document.getElementById('loading').style.display = 'block';
+
+            let temp = [];
+            for (let index = 0; index < n; index++) {
+                let fetched = await fetch('https://random-data-api.com/api/v2/users?size=100')
+                .then((response) => response.json())
+                .then((data) => { return data }); 
+                test_arr = [...test_arr, ...fetched];
+            }
+            console.log(test_arr);
+            document.getElementById('size').innerHTML = test_arr.length;
+            document.getElementById('loading').style.display = 'none';
+        };
+
+
+        // using ArrayRegSearch 
+
+        function useArrayRegSearch(search,key){
+            let arrayRegSearch = new ArrayRegSearch(test_arr,key);
+            var startTime = performance.now();
+            let found = arrayRegSearch.search(search);
+            var elapsed = performance.now() - startTime;
+            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+            document.getElementById('time').innerText = elapsed + ' millisecond';
+        }
+
+        // using findIndex 
+
+        function useFindIndex(search,key){
+            var startTime = performance.now();
+            let found = test_arr.findIndex(x => x[key] === search);
+            var elapsed = performance.now() - startTime;
+
+            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+            document.getElementById('time').innerText = elapsed + ' millisecond';
+        }
+
+        // using filter
+
+        function useFilter(search,key){
+            var startTime = performance.now();
+            let found = test_arr.filter(x => x[key] === search);
+            var elapsed = performance.now() - startTime;
+
+            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+            document.getElementById('time').innerText = elapsed + ' millisecond';
+        }
+
+
+    </script>
+</html>
