@@ -15,7 +15,6 @@
             ArrayRegSearch
         </h2>
     </div>
-
     
     <div class="w-full max-w">
         <div class="flex items-center gap-2 py-2">
@@ -99,6 +98,21 @@
         </div>
     </div>
 
+
+    <table class="text-left w-full my-4">
+      <thead class="bg-slate-400 flex text-white w-full rounded">
+        <tr class="flex w-full mb-2">
+          <th class="p-4 text-2xl w-1/2">Index</th>
+          <th class="p-4 text-2xl w-1/2">Value</th>
+        </tr>
+      </thead>
+      <tbody id="response-table-preview" class="bg-slate-800 flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
+        
+      </tbody>
+    </table>
+
+
+
     <div style="display: none;" id="loading">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(71,85,105); display: block;" width="253px" height="253px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <g transform="rotate(0 50 50)">
@@ -158,93 +172,103 @@
 </body>
     <script>
 
-        let test_arr = [];
+      let test_arr = [];
+      document.getElementById('find').addEventListener('click', (e) => {
+        let search = document.getElementById('search').value.trim();
+        let algo = document.getElementById('search-algo').value;
+        let key = document.getElementById('search-key').value;
 
-        document.getElementById('find').addEventListener('click', (e) => {
-            let search = document.getElementById('search').value.trim();
-            let algo = document.getElementById('search-algo').value;
-            let key = document.getElementById('search-key').value;
+        switch (algo) {
+          case 'ArrayRegSearch':
+              useArrayRegSearch(search,key);
+              break;
 
-            switch (algo) {
-                case 'ArrayRegSearch':
-                    useArrayRegSearch(search,key);
-                    break;
+          case 'findIndex':
+              useFindIndex(search,key)
+              break;
 
-                case 'findIndex':
-                    useFindIndex(search,key)
-                    break;
+          case 'filter':
+              useFilter(search,key)
+              break;
+      
+          default:
+              break;
+        }
+      });
 
-                case 'filter':
-                    useFilter(search,key)
-                    break;
-            
-                default:
-                    break;
-            }
+      document.getElementById('get-data-size').addEventListener('click', (e) => {
+        let value = document.getElementById('data-size').value;
+        getData(value);
+      });
 
-            
-        });
-
-        document.getElementById('get-data-size').addEventListener('click', (e) => {
-            let value = document.getElementById('data-size').value;
-            getData(value);
-        });
-
-        document.getElementById('data-size').addEventListener('change', (e) => {
-            document.getElementById('range-value').innerText = e.target.value * 100;
-        });
+      document.getElementById('data-size').addEventListener('change', (e) => {
+        document.getElementById('range-value').innerText = e.target.value * 100;
+      });
 
 
-        // gather random data to search
-        async function getData(n = 1){
-            document.getElementById('loading').style.display = 'block';
+      // gather random data to search
+      async function getData(n = 1){
+        document.getElementById('loading').style.display = 'block';
 
-            let temp = [];
-            for (let index = 0; index < n; index++) {
-                let fetched = await fetch('https://random-data-api.com/api/v2/users?size=100')
-                .then((response) => response.json())
-                .then((data) => { return data }); 
-                test_arr = [...test_arr, ...fetched];
-            }
-            console.log(test_arr);
-            document.getElementById('size').innerHTML = test_arr.length;
-            document.getElementById('loading').style.display = 'none';
-        };
-
-
-        // using ArrayRegSearch 
-
-        function useArrayRegSearch(search,key){
-            let arrayRegSearch = new ArrayRegSearch(test_arr,key);
-            var startTime = performance.now();
-            let found = arrayRegSearch.search(search);
-            var elapsed = performance.now() - startTime;
-            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
-            document.getElementById('time').innerText = elapsed + ' millisecond';
+        let temp = [];
+        for (let index = 0; index < n; index++) {
+          let fetched = await fetch('https://random-data-api.com/api/v2/users?size=100')
+          .then((response) => response.json())
+          .then((data) => { return data }); 
+          test_arr = [...test_arr, ...fetched];
         }
 
-        // using findIndex 
+        setTableContent();
+        console.log(test_arr);
+        document.getElementById('size').innerHTML = test_arr.length;
+        document.getElementById('loading').style.display = 'none';
+      };
 
-        function useFindIndex(search,key){
-            var startTime = performance.now();
-            let found = test_arr.findIndex(x => x[key] === search);
-            var elapsed = performance.now() - startTime;
-
-            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
-            document.getElementById('time').innerText = elapsed + ' millisecond';
+      function setTableContent(){
+        let key = document.getElementById('search-key').value;
+        document.getElementById('response-table-preview').innerHTML = '';
+        for (let index = 0; index < test_arr.length; index++) {
+          const table_row = `
+            <tr class="flex w-full mb-2">
+              <td class="p-4 w-1/2">${index}</td>
+              <td class="p-4 w-1/2">${test_arr[index][key]}</td>
+            </tr>
+          `;
+          document.getElementById('response-table-preview').innerHTML = document.getElementById('response-table-preview').innerHTML + table_row;
         }
+      }
 
-        // using filter
+      // using ArrayRegSearch 
 
-        function useFilter(search,key){
-            var startTime = performance.now();
-            let found = test_arr.filter(x => x[key] === search);
-            var elapsed = performance.now() - startTime;
+      function useArrayRegSearch(search,key){
+        let arrayRegSearch = new ArrayRegSearch(test_arr,key);
+        var startTime = performance.now();
+        let found = arrayRegSearch.search(search);
+        var elapsed = performance.now() - startTime;
+        document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+        document.getElementById('time').innerText = elapsed + ' millisecond';
+      }
 
-            document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
-            document.getElementById('time').innerText = elapsed + ' millisecond';
-        }
+      // using findIndex 
 
+      function useFindIndex(search,key){
+        var startTime = performance.now();
+        let found = test_arr.findIndex(x => x[key] === search);
+        var elapsed = performance.now() - startTime;
 
+        document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+        document.getElementById('time').innerText = elapsed + ' millisecond';
+      }
+
+      // using filter
+
+      function useFilter(search,key){
+        var startTime = performance.now();
+        let found = test_arr.filter(x => x[key] === search);
+        var elapsed = performance.now() - startTime;
+
+        document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
+        document.getElementById('time').innerText = elapsed + ' millisecond';
+      }
     </script>
 </html>
