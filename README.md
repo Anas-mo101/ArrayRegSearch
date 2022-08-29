@@ -38,13 +38,13 @@ Is it actually effective ?
   
  What to improve ? 
   
-  1- Optimizing String Mapping Format.
-  2- Optimizing RegEx pattern.
+ 1- Optimizing String Mapping Format.
+ 2- Optimizing RegEx pattern.
   
  What I am planning to do ?
  
-  1- Replicate the algorithm in different programming languages (python and php)
-  2- Reduce the seearch time.
+ 1- Replicate the algorithm in different programming languages (python and php).
+ 2- Reduce the seearch time.
   
   
  
