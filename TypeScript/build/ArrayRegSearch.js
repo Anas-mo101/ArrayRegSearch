@@ -20,13 +20,20 @@ class ArrayRegSearch {
         });
         this.mapped_array = _temp_mapped;
     }
-    search(find) {
+    findIndex(find) {
         if (this.mapped_array == undefined) {
             return false;
         }
         const rExp = new RegExp(`(?!{)(?:[[0-9]+)(?=,${find}})`);
         let found = this.mapped_array.match(rExp);
+        this.count = found == null || found.length <= 0 ? 0 : found.length;
         let index_found = found == null || found.length <= 0 ? false : parseInt(found[0]);
         return index_found;
+    }
+    getMappedString() {
+        return this.mapped_array;
+    }
+    getMatchCount() {
+        return this.count;
     }
 }

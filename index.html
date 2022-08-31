@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./TypeScript/build/ArrayRegSearch.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
+    <title>ArrayRegSearch</title>
 </head>
 <body class="bg-slate-600 font-mono p-4 text-white">
 
@@ -17,9 +17,9 @@
         <p class="text-center text-m"> version: 0.0.2 </p>
     </div>
 
-    <div class="py-6"> <h3 class="text-center text-2xl"> - Search Params - </h3> </div>
+    <div class="py-6"> <h3 class="text-center text-2xl"> - Search Parameters - </h3> </div>
 
-    <div class="flex justify-between">
+    <div class="flex gap-4 justify-between">
       <div class="w-full max-w">
         <div class="flex items-center gap-5 py-2">
             <div>
@@ -52,12 +52,33 @@
                 <option selected value="uid">
                     UID
                 </option>
-                <option selected value="first_name">
+                <option value="first_name">
                     First Name
                 </option>
             </select>
         </div>
       </div>
+
+
+      <div class="w-full max-w">
+        <div class="flex items-center gap-5 py-2">
+            <div>
+                <h1>
+                    Test Type: 
+                </h1>
+            </div>
+            <select id="test-type"  class="block p-2 text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected value="search_index">
+                  Search Index
+                </option>
+                <option value="search_index_overall">
+                  Overall Search Index 
+                </option>
+            </select>
+        </div>
+      </div>
+
+
     </div>
       
 
@@ -70,60 +91,110 @@
             </div>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="data-size" value="0" type="range" step="1" min="0" max="50" placeholder="Search">
             <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="get-data-size" type="button">
-                Set Search Size
+                Set Search Sample Size
             </button>
         </div>
     </div>
 
 
-    <div class="py-6"> <h3 class="text-center text-2xl"> - Search Stats - </h3> </div>
+    <div style="display: block;" id="search-index-section">
+      <div class="py-6"> <h3 class="text-center text-2xl"> - Search Stats - </h3> </div>
 
-    <div class="flex justify-between">
+      <div class="flex justify-between">
+        <div class="w-full max-w">
+          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Index Found: <span id="index-found">0</span> </h1>
+          </div>
+        </div>
+
+        <div class="w-full max-w">
+            <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Elapsed time: <span id="time">0</span> </h1>
+            </div>
+        </div>
+
+
+        <div class="w-full max-w">
+            <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Search Sample Size: <span id="size">0</span> </h1>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="flex justify-between">
+
+        <div class="w-full max-w">
+          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Number of Matches: <span id="match-num">0</span> </h1>
+          </div>
+        </div>
+
+        <div class="w-full max-w">
+            <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> ??: <span id="time">0</span> </h1>
+            </div>
+        </div>
+
+
+        <div class="w-full max-w">
+            <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> ??: <span id="size">0</span> </h1>
+            </div>
+        </div>
+
+      </div>
+
+
+      <div class="py-6"> <h3 class="text-center text-2xl"> - Search - </h3> </div>
 
       <div class="w-full max-w">
-        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-              <h1> Index Found: <span id="index-found">0</span> </h1>
+        <div class="flex items-center gap-2 py-2">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
+            <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="find" type="button">
+                Search
+            </button>
         </div>
       </div>
 
-      <div class="w-full max-w">
-          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-              <h1> Elapsed time: <span id="time">0</span> </h1>
-          </div>
-      </div>
-
-
-      <div class="w-full max-w">
-          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-              <h1> Search Size: <span id="size">0</span> </h1>
-          </div>
-      </div>
+      <table class="text-left w-full my-4">
+        <thead class="bg-slate-400 flex text-white w-full rounded">
+          <tr class="flex w-full mb-2">
+            <th class="p-4 text-2xl w-1/2">Index</th>
+            <th class="p-4 text-2xl w-1/2">Value</th>
+          </tr>
+        </thead>
+        <tbody id="response-table-preview" class="bg-slate-800 flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
+        </tbody>
+      </table>
 
     </div>
 
-    <div class="py-6"> <h3 class="text-center text-2xl"> - Search - </h3> </div>
 
-    <div class="w-full max-w">
-      <div class="flex items-center gap-2 py-2">
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
-          <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="find" type="button">
-              Search
-          </button>
+    <div style="display: none;" id="overall-search-index-section">
+
+      <div class="flex justify-center my-12">
+        <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" onclick="test_proformace()" type="button">
+          <b>Start Test</b>
+        </button>
       </div>
+
+      <div class="flex justify-between">
+        <div class="w-full max-w">
+          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Total time taken: <span id="total-time">0</span> </h1>
+          </div>
+        </div>
+
+        <div class="w-full max-w">
+            <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+                <h1> Average Time Taken: <span id="avg-time">0</span> </h1>
+            </div>
+        </div>
+      <div>
+
+
     </div>
-
-
-    <table class="text-left w-full my-4">
-      <thead class="bg-slate-400 flex text-white w-full rounded">
-        <tr class="flex w-full mb-2">
-          <th class="p-4 text-2xl w-1/2">Index</th>
-          <th class="p-4 text-2xl w-1/2">Value</th>
-        </tr>
-      </thead>
-      <tbody id="response-table-preview" class="bg-slate-800 flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
-      </tbody>
-    </table>
-
 
 
     <div style="display: none;" id="loading">
@@ -177,14 +248,10 @@
                 <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="0s" repeatCount="indefinite"></animate>
               </rect>
             </g>
-            </svg>
+        </svg>
     </div>
-
-
-
 </body>
     <script>
-
       let test_arr = [];
       document.getElementById('find').addEventListener('click', (e) => {
         let search = document.getElementById('search').value.trim();
@@ -208,6 +275,16 @@
               break;
         }
       });
+      
+      document.getElementById('test-type').addEventListener('change', (e) => {
+        if (e.target.value == 'search_index') {
+          document.getElementById('search-index-section').style.display = 'block';
+          document.getElementById('overall-search-index-section').style.display = 'none';
+        }else{
+          document.getElementById('search-index-section').style.display = 'none';
+          document.getElementById('overall-search-index-section').style.display = 'block';
+        }
+      });
 
       document.getElementById('get-data-size').addEventListener('click', (e) => {
         let value = document.getElementById('data-size').value;
@@ -224,6 +301,14 @@
         document.getElementById('loading').style.display = 'none';
       });
 
+      document.getElementById('search-algo').addEventListener('change', (e) => {
+        if(e.target.value === 'ArrayRegSearch'){
+          document.getElementById('match-num').innerHTML = '0';
+        }else{
+          document.getElementById('match-num').innerHTML = '-';
+        }
+        
+      });
 
       // gather random data to search
       async function getData(n = 1){
@@ -234,12 +319,14 @@
         for (let index = 0; index < n; index++) {
           let fetched = await fetch('https://random-data-api.com/api/v2/users?size=100')
           .then((response) => response.json())
-          .then((data) => { return data }); 
-          test_arr = [...test_arr, ...fetched];
+          .then((data) => { return data })
+          .catch(() => { return [] }); 
+          if (isIterable(fetched)) {
+            test_arr = [...test_arr, ...fetched];
+          }
         }
 
         setTableContent();
-        console.log(test_arr);
         document.getElementById('size').innerHTML = test_arr.length;
         document.getElementById('loading').style.display = 'none';
       };
@@ -258,15 +345,63 @@
         }
       }
 
+      function isIterable(obj) {
+        if (obj == null) {
+          return false;
+        }
+        return typeof obj[Symbol.iterator] === 'function';
+      }
+
+      // Standardise preformance testing 
+
+      function test_proformace(n = 10){
+        if (test_arr.length < 1) {
+          console.log('exit');
+          return;
+        }
+
+        document.getElementById('loading').style.display = 'block';
+        let algo = document.getElementById('search-algo').value;
+        let key = document.getElementById('search-key').value;
+        let startTime; let elapsed = 0; let total = 0; let avg = 0;
+
+        for (let index = 0; index < n; index++) {
+          let rand = Math.floor(Math.random() * test_arr.length) + 1;
+          let search = test_arr[index][key];
+          if (algo === 'ArrayRegSearch') {
+            let arrayRegSearch = new ArrayRegSearch(test_arr,key);
+            startTime = performance.now();              
+            arrayRegSearch.findIndex(search);
+            elapsed = performance.now() - startTime;  
+          } else if (algo === 'findIndex'){
+            startTime = performance.now();
+            test_arr.findIndex(x => x[key] === search);
+            elapsed = performance.now() - startTime;
+          } else if (algo === 'filter'){
+            startTime = performance.now();
+            test_arr.filter(x => x[key] === search);
+            elapsed = performance.now() - startTime;
+          }
+          total += elapsed;
+        }
+        avg = total / n;
+        document.getElementById('total-time').innerHTML = total;
+        document.getElementById('avg-time').innerHTML = avg;
+        document.getElementById('loading').style.display = 'none';
+      }
+
       // using ArrayRegSearch 
 
       function useArrayRegSearch(search,key){
         let arrayRegSearch = new ArrayRegSearch(test_arr,key);
-        var startTime = performance.now();
-        let found = arrayRegSearch.search(search);
-        var elapsed = performance.now() - startTime;
+
+        var startTime = performance.now();                // ==> test starts
+        let found = arrayRegSearch.findIndex(search);
+        var elapsed = performance.now() - startTime;      // ==> test ends
+
+        document.getElementById('match-num').innerHTML = arrayRegSearch.getMatchCount();
         document.getElementById('index-found').innerHTML = found == false ? 'No result found' : 'Index: ' + found;
-        document.getElementById('time').innerText = elapsed + ' millisecond';
+        document.getElementById('time').innerText = elapsed + ' ms';
       }
 
       // using findIndex 

@@ -5,6 +5,7 @@ class ArrayRegSearch{
     main_array: readonly [];
     mapped_array: String | undefined;
     key: string | undefined;
+    count: number | undefined;
     
 
     constructor(main_array: [], key: string | undefined = undefined){
@@ -30,7 +31,7 @@ class ArrayRegSearch{
         this.mapped_array = _temp_mapped;
     }
 
-    public search(find: String): number | boolean{
+    public findIndex(find: String): number | boolean{
 
         if (this.mapped_array == undefined) {
             return false;
@@ -40,9 +41,18 @@ class ArrayRegSearch{
 
         let found: RegExpMatchArray | null = this.mapped_array.match(rExp);
 
+        this.count = found == null || found.length <= 0 ? 0 : found.length;
+
         let index_found: number | boolean = found == null || found.length <= 0 ? false : parseInt(found[0]);
 
         return index_found;
     }
 
+    public getMappedString(): String | undefined{
+        return this.mapped_array;
+    }
+
+    public getMatchCount(): number | undefined{
+        return this.count;
+    }
 }
