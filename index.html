@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./build/ArrayRegSearch.js"></script>
+    <script src="./TypeScript/build/ArrayRegSearch.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
@@ -14,18 +14,13 @@
         <h2 id="result" class="text-center text-4xl">
             ArrayRegSearch
         </h2>
-    </div>
-    
-    <div class="w-full max-w">
-        <div class="flex items-center gap-2 py-2">
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
-            <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="find" type="button">
-                Search
-            </button>
-        </div>
+        <p class="text-center text-m"> version: 0.0.2 </p>
     </div>
 
-    <div class="w-full max-w">
+    <div class="py-6"> <h3 class="text-center text-2xl"> - Search Params - </h3> </div>
+
+    <div class="flex justify-between">
+      <div class="w-full max-w">
         <div class="flex items-center gap-5 py-2">
             <div>
                 <h1>
@@ -44,9 +39,9 @@
                 </option>
             </select>
         </div>
-    </div>
+      </div>
 
-    <div class="w-full max-w">
+      <div class="w-full max-w">
         <div class="flex items-center gap-5 py-2">
             <div>
                 <h1>
@@ -62,7 +57,9 @@
                 </option>
             </select>
         </div>
+      </div>
     </div>
+      
 
     <div class="w-full max-w">
         <div class="flex items-center gap-2 py-2">
@@ -73,29 +70,46 @@
             </div>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="data-size" value="0" type="range" step="1" min="0" max="50" placeholder="Search">
             <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="get-data-size" type="button">
-                Set Size
+                Set Search Size
             </button>
         </div>
     </div>
 
 
-    <div class="w-full max-w">
+    <div class="py-6"> <h3 class="text-center text-2xl"> - Search Stats - </h3> </div>
+
+    <div class="flex justify-between">
+
+      <div class="w-full max-w">
         <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-            <h1> Index: <span id="index-found">0</span> </h1>
+              <h1> Index Found: <span id="index-found">0</span> </h1>
         </div>
+      </div>
+
+      <div class="w-full max-w">
+          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+              <h1> Elapsed time: <span id="time">0</span> </h1>
+          </div>
+      </div>
+
+
+      <div class="w-full max-w">
+          <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
+              <h1> Search Size: <span id="size">0</span> </h1>
+          </div>
+      </div>
+
     </div>
 
-    <div class="w-full max-w">
-        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-            <h1> Elapsed time: <span id="time">0</span> </h1>
-        </div>
-    </div>
-
+    <div class="py-6"> <h3 class="text-center text-2xl"> - Search - </h3> </div>
 
     <div class="w-full max-w">
-        <div class="flex items-center gap-2 py-2 justify-center justify-items-center">
-            <h1> Size Of Array: <span id="size">0</span> </h1>
-        </div>
+      <div class="flex items-center gap-2 py-2">
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
+          <button class="flex-shrink-0 bg-slate-400 hover:bg-teal-700 border-slate-400 hover:bg-slate-500 text-sm border-4 text-white py-1 px-2 rounded" id="find" type="button">
+              Search
+          </button>
+      </div>
     </div>
 
 
@@ -107,14 +121,13 @@
         </tr>
       </thead>
       <tbody id="response-table-preview" class="bg-slate-800 flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
-        
       </tbody>
     </table>
 
 
 
     <div style="display: none;" id="loading">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(71,85,105); display: block;" width="253px" height="253px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <svg style="margin: auto;background: rgb(71 85 105 / 0%);display: block;position: fixed;top: 0;margin: auto;width: 100%;height: 100%;right: 0;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(71,85,105); display: block;" width="253px" height="253px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <g transform="rotate(0 50 50)">
               <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffffff">
                 <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.6666666666666667s" begin="-1.527777777777778s" repeatCount="indefinite"></animate>
@@ -205,12 +218,19 @@
         document.getElementById('range-value').innerText = e.target.value * 100;
       });
 
+      document.getElementById('search-key').addEventListener('change', (e) => {
+        document.getElementById('loading').style.display = 'block';
+        setTableContent();
+        document.getElementById('loading').style.display = 'none';
+      });
+
 
       // gather random data to search
       async function getData(n = 1){
         document.getElementById('loading').style.display = 'block';
 
         let temp = [];
+        test_arr = [];
         for (let index = 0; index < n; index++) {
           let fetched = await fetch('https://random-data-api.com/api/v2/users?size=100')
           .then((response) => response.json())
