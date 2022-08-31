@@ -12,7 +12,7 @@ How it works
     
     let arrayRegSearch = ArrayRegSearch(x,'name');
  
- 2- Uses array elements and their indeces to create "Mapped Search String" of format "{<index>,<search key value>}".
+ 2- Uses array elements and their indeces to create "Mapped Search String" of format "{>index<,>search key value<}".
     
     [
       { 'name' : 'Anas', 'age' : 21},
